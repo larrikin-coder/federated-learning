@@ -32,12 +32,6 @@ def receive_update():
     else:
         return jsonify({"status": "update received, waiting for more clients"})
 
-    if len(received_weights) >= 2:  # we expect dataset1 + dataset2 clients
-        new_state = average_models(received_weights)
-        global_model.load_state_dict(new_state)
-        received_weights = []
-        return jsonify({"status": "global model updated"})
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
